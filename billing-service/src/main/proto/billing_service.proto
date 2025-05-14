@@ -1,0 +1,19 @@
+syntax = "proto3"; // версия протокола
+
+option java_multiple_files = true; // кидает запросы по разным файлам
+option java_package = "billing"; // кидает весь код в пакет
+
+service BillingService {
+  rpc CreateBillingAccount (BillingRequest) returns (BillingResponse); // метод принимает запрос и отправляет ответ
+}
+
+message BillingRequest { // переменный которые должны быть в запросе/ответе
+  string patientId = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message BillingResponse {
+  string accountId = 1;
+  string status = 2;
+}
