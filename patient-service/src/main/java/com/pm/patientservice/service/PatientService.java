@@ -11,7 +11,6 @@ import com.pm.patientservice.model.Patient;
 import com.pm.patientservice.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,6 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PatientService {
     private final PatientRepository patientRepository;
+    private final KafkaProducer kafkaProducer;
     // private final BillingServiceGrpcClient billingServiceGrpcClient;
 
     public List<PatientResponseDTO> getPatients() {
@@ -31,8 +31,9 @@ public class PatientService {
 
     public PatientResponseDTO createPatient(PatientRequestDTO request) {
         if (patientRepository.existsByEmail(request.getEmail())) {
-            throw new EmailAlreadyExistsException("A patient with this email " +
-                    "already exists " + request.getEmail());
+            throw new EmailAlreadyExistsException(
+                    "A patient with this email already exists " +
+                            request.getEmail());
         }
 
         Patient newPatient = patientRepository.save(

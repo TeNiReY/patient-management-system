@@ -4,9 +4,9 @@ Host: localhost:4000
 Content-Type:  application/json
 
 {
-  "name" : "Denis Doe",
+  "name" : "Test shit",
   "address": "123 main street",
-  "email": "test@example.com",
+  "email": "testShit8@example.com",
   "dateOfBirth": "1995-09-09",
   "registeredDate": "2024-11-28"
 }
