@@ -23,6 +23,7 @@ spring:
             - Path=/api/patients/** # ?????? ??????? ?? ??????????
           filters:
             - StripPrefix=1
+            - JwtValidation #TODO: проверить че за хуйня (походу для каждого запроса будет проходить валидация
 
         # Route for /api/docs/patients to patient-service /v3/api-docs
         - id: api-docs-patient-route
@@ -31,4 +32,9 @@ spring:
             - Path=/api-docs/patients
           filters:
             - RewritePath=/api-docs/patients,/v3/api-docs
-
+        - id: api-docs-auth-route
+          uri: http://auth-service:4005
+          predicates:
+            - Path=/api-docs/auth
+          filters:
+            - RewritePath=/api-docs/auth,/v3/api-docs
